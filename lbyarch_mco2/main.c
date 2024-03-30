@@ -6,6 +6,26 @@
 
 
 /**
+ * @brief Computes the 1d stencil operation on the input array X, stores the result in Y, and displays it.
+ *
+ * @param n The size of the input array X.
+ * @param X Pointer to the input array.
+ * @param Y Pointer to the output array to store the result.
+ */
+void dstencil(int n, double* X, double* Y) {
+	printf("(C) Output Y -> ");
+	int max = (n < 10) ? n : 10;
+
+	for (int i = 0; i < max; i++) {
+		Y[i] = 0;
+		for (int j = i; j <= i + 6; j++) {
+			Y[i] += X[j];
+		}
+		printf("%.4f%s", Y[i], (i + 1 != max) ? ", " : "...");
+	}
+}
+
+/**
  * @brief Generates an array of random double values within the range [-75, 75].
  *
  * @param size The size of the array to be generated.
@@ -16,7 +36,7 @@
 double* gen_arr(int size, int seed) {
 	double* arr = malloc(size * sizeof(double));
 	if (arr == NULL) {
-		printf("Memory allocation failed!\n");
+		printf("malloc failed!\n");
 		return NULL;
 	}
 
@@ -31,23 +51,26 @@ double* gen_arr(int size, int seed) {
 
 
 int main() {
-	int n = 8; //1048576 [2^20], 16777216 [2^24], 268435456 [2^28] 
+	int n = 20; //1048576 [2^20], 16777216 [2^24], 268435456 [2^28] 
 
 	printf("Generating random elements for array of size %d...\n", n);
 
 	double* X = gen_arr(n, 96);
+	n = n - 6;
+	double* Y = malloc(n * sizeof(double));
 
-	int max = (n < 10) ? n : 10;
-
-
-	printf("\nX --> ");
+	/*
+	// print X
+	printf("\nX -> ");
 	for (int i = 0; i < max; i++) {
 		printf("%.4f%s", X[i], (i + 1 != max) ? ", " : "...");
-	}
+	}*/
 
 	printf("\n");
 
-	free(X);
+	dstencil(n, X, Y);
 
+	free(X);
+	free(Y);
 	return 0;
 }
