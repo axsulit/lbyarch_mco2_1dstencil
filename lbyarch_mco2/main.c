@@ -16,12 +16,14 @@ void dstencil(int n, double* X, double* Y) {
 	printf("(C) Output Y -> ");
 	int max = (n < 10) ? n : 10;
 
-	for (int i = 0; i < max; i++) {
+	for (int i = 0; i < n; i++) {
 		Y[i] = 0;
 		for (int j = i; j <= i + 6; j++) {
 			Y[i] += X[j];
 		}
-		printf("%.4f%s", Y[i], (i + 1 != max) ? ", " : "...");
+	}
+	for (int i = 0; i < max; i++) {
+		printf("%.4f%s", Y[i], (i + 1 != max) ? ", " : " . . .");
 	}
 }
 
@@ -53,7 +55,7 @@ double* gen_arr(int size, int seed) {
 int main() {
 	int n = 20; //1048576 [2^20], 16777216 [2^24], 268435456 [2^28] 
 
-	printf("Generating random elements for array of size %d...\n", n);
+	printf("Generating random elements for array of size %d . . .\n", n);
 
 	double* X = gen_arr(n, 96);
 	n = n - 6;
