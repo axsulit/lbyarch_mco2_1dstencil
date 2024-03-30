@@ -1,0 +1,2 @@
+^D:\LBYARCH_MCO2\LBYARCH_MCO2\ASMFUNC.ASM
+c:\nasm\nasm -fwin64 asmfunc.asm
