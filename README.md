@@ -67,4 +67,9 @@ It is also worth noting that the performance of kernels can be influenced by var
 ## Program Output with Correctness Check (C & x86-64)
 ### Debug Mode
 ![Vector Size: 2-20](Screenshots/dm-1.png)
+![Vector Size: 2-24](Screenshots/dm-2.png)
+![Vector Size: 2-28](Screenshots/dm-3.png)
 ### Release Mode
+![Vector Size: 2-20](Screenshots/rm-1.png)
+![Vector Size: 2-24](Screenshots/rm-2.png)
+![Vector Size: 2-28](Screenshots/rm-3.png)
