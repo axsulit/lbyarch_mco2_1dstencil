@@ -10,7 +10,7 @@ global asm_dStencil
 extern printf
 
 asm_dStencil:   
-    sub rsp, 8*11       ; Allocate space for local variables
+    sub rsp, 8*11       
     
     mov r12, rcx ; n
     mov r13, rdx ; X
@@ -21,9 +21,11 @@ asm_dStencil:
     mov r11, 0
 
 LOOP:
+    ; check if all elements of Y are identified
     cmp r11, r12
     je print_output
     
+    ; stencil operation
     movsd xmm5, [r13 - 24 + 8*rbx] 
     addsd xmm5, [r13 - 16 + 8*rbx]
     addsd xmm5, [r13 - 8 + 8*rbx]
@@ -32,6 +34,7 @@ LOOP:
     addsd xmm5, [r13 + 16 + 8*rbx]
     addsd xmm5, [r13 + 24 + 8*rbx]
     
+    ; store result in Y
     movsd [r14 + 8*r11], xmm5
     
     inc rbx
@@ -65,6 +68,7 @@ print_output:
         cmp r11, 3
         je print_three
         
+        ;Get 3rd-9th index in Y
         movsd xmm6, [r14 - 8 + 8*r11]
         movsd qword [output_hold], xmm6
         mov rax, [output_hold]
@@ -75,16 +79,19 @@ print_output:
         jmp output_loop
     
     print_three:
+        ; Get 2nd index in Y
         movsd xmm6, [r14 + 8*2]
         movsd qword [output_hold], xmm6
         mov r9, [output_hold]
         
     print_two:
+        ; Get 1st index in Y
         movsd xmm6, [r14 + 8]
         movsd qword [output_hold], xmm6
         mov r8, [output_hold]
         
     print_one:
+        ; Get 0th index in Y
         movsd xmm6, [r14]
         movsd qword [output_hold], xmm6
         mov rdx, [output_hold]
@@ -96,7 +103,6 @@ end:
     call printf
     
     add rsp, 8*11
-    mov rax, r14
-
+    mov rax, r14 ; return Y
 
     ret       
