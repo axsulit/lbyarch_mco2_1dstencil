@@ -5,6 +5,17 @@
 #include <math.h>
 #include <time.h>
 
+
+/**
+ * @brief 1D stencil kernel implemented in x86-64 assembly.
+ *
+ * @param n     The number of elements in the arrays X and Y.
+ * @param X     Pointer to the input array containing the initial data.
+ * @param Y     Pointer to the output array to store the result of the stencil operation.
+ * @return      None. The result is stored in the array Y.
+ */
+extern double* asm_dStencil(int n, double* X, double* Y);
+
 /**
  * @brief Retrieves the current high-resolution performance counter value.
  * 
@@ -29,6 +40,7 @@ double getExecutionTime(LARGE_INTEGER start, LARGE_INTEGER end) {
 	return (double)(end.QuadPart - start.QuadPart) / frequency.QuadPart;
 }
 
+
 /**
  * @brief Computes the 1d stencil operation on the input array X, stores the result in Y, and displays it.
  *
@@ -37,7 +49,7 @@ double getExecutionTime(LARGE_INTEGER start, LARGE_INTEGER end) {
  * @param Y Pointer to the output array to store the result.
  */
 void c_dStencil(int n, double* X, double* Y) {
-	printf("(C) Output Y -> ");
+	printf("(C) Output: Y -> ");
 	int max = (n < 10) ? n : 10;
 
 	for (int i = 0; i < n; i++) {
@@ -75,9 +87,8 @@ double* genArr(int size, int seed) {
 	return arr;
 }
 
-
 int main() {
-	int n = 1048576; //1048576 [2^20], 16777216 [2^24], 268435456 [2^28] 
+	int n = 20; //1048576 [2^20], 16777216 [2^24], 268435456 [2^28] 
 	
 	printf("Generating random elements for array of size %d . . .\n", n);
 	double* X = genArr(n, 96);
@@ -85,24 +96,37 @@ int main() {
 	n = n - 6;
 	double* Y = malloc(n * sizeof(double));
 
-	/*
 	// print X
-	printf("\nX -> ");
-	for (int i = 0; i < max; i++) {
-		printf("%.4f%s", X[i], (i + 1 != max) ? ", " : "...");
+	/*printf("\nX -> ");
+	for (int i = 0; i < 20; i++) {
+		printf("%.4f%s", X[i], (i + 1 != 20) ? ", " : "...");
 	}*/
 
 	printf("\n");
 
+	// C Kernel
 	LARGE_INTEGER cstart = getTimestamp();
 	c_dStencil(n, X, Y);
 	LARGE_INTEGER cend = getTimestamp();
 
+	// C Execution Time
 	double ctime = getExecutionTime(cstart, cend);
-	printf("(C) Execution time for 1D vector of size %d -> %lf seconds . . .\n", n, ctime);
+	printf("(C)   Execution time for 1D vector of size %d -> %lf seconds . . .\n\n", n, ctime);
 
+	// ASM Kernel
+	//double* asm_dStencil_result = malloc(n * sizeof(double));
+	LARGE_INTEGER asmstart = getTimestamp();
+	Y = asm_dStencil(n, X, Y);
+	LARGE_INTEGER asmend = getTimestamp();
+	
 	free(X);
 	free(Y);
+	//free(asm_dStencil_result);
 
+	// ASM Execution Time
+	double asmtime = getExecutionTime(asmstart, asmend);
+	printf("(ASM) Execution time for 1D vector of size %d -> %lf seconds . . .\n", n, asmtime);
+	
+	
 	return 0;
 }
