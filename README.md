@@ -13,11 +13,11 @@ In this formula:
 This stencil operation was implemented in both C and x86-64 assembly kernels.
 
 
-### Average Execution Time (in secs)
+## Average Execution Time (in secs)
 <table>
     <thead>
         <tr>
-            <td>n</td>
+            <td>n (Size of X)</td>
             <td colspan=2 style="text-align: center;">2^20 (1048576)</td>
             <td colspan=2 style="text-align: center;">2^24 (16777216)</td>
             <td colspan=2 style="text-align: center;">2^28 (268435456)</td>
@@ -25,7 +25,7 @@ This stencil operation was implemented in both C and x86-64 assembly kernels.
     </thead>
     <tbody>
         <tr>
-            <td></td>
+            <td>Kernel</td>
             <td style="text-align: center;">C</td>
             <td style="text-align: center;">ASM</td>
             <td style="text-align: center;">C</td>
@@ -54,6 +54,8 @@ This stencil operation was implemented in both C and x86-64 assembly kernels.
     </tbody>
 </table>
 
+### Analysis of Results
+
 The performance analysis of the kernels in both Debug and Release modes reveals interesting insights into the behavior of C and ASM kernels under different compilation settings. The data provided shows that the C kernel performs significantly slower in Debug mode compared to Release mode, regardless of the size of the data being processed. This is consistent with the general understanding that Debug mode includes additional checks and optimizations are turned off, leading to slower execution times 1.
 
 On the other hand, the ASM kernel exhibits a slight performance decrease in Release mode, which is somewhat counterintuitive. Typically, Release mode is expected to offer better performance due to optimizations that are not present in Debug mode. However, the observed behavior suggests that the ASM kernel might not benefit as much from these optimizations, possibly due to its inherent complexity or the specific optimizations applied by the compiler 4.
@@ -61,3 +63,7 @@ On the other hand, the ASM kernel exhibits a slight performance decrease in Rele
 The performance discrepancy between Debug and Release modes for both kernels can be attributed to the fundamental differences in how these modes handle code optimization and runtime checks. Debug mode is designed for development and debugging, with a focus on ease of use and diagnostics, at the expense of performance. In contrast, Release mode prioritizes performance, enabling optimizations that can significantly reduce execution time but may introduce complexity in debugging 14.
 
 It is also worth noting that the performance of kernels can be influenced by various factors, including the specific compiler and optimization settings used. For instance, the use of certain compiler flags or the inclusion of specific optimizations can affect the performance of both C and ASM kernels in both Debug and Release modes 4.
+
+## Program Output with Correctness Check (C)
+
+## Program Output with Correctness Check (ASM)
