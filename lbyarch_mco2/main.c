@@ -96,8 +96,8 @@ int main() {
 	double* X = genArr(n, 96);
 
 	n = n - 6;
-	double* Y = malloc(n * sizeof(double));
-
+	double* cY = malloc(n * sizeof(double));
+	double* asmY = malloc(n * sizeof(double));
 	// print X
 	/*printf("\nX -> ");
 	for (int i = 0; i < n+6; i++) {
@@ -108,7 +108,7 @@ int main() {
 
 	// C Kernel
 	LARGE_INTEGER cstart = getTimestamp();
-	c_dStencil(n, X, Y);
+	c_dStencil(n, X, cY);
 	LARGE_INTEGER cend = getTimestamp();
 
 	// C Execution Time
@@ -117,11 +117,12 @@ int main() {
 
 	// ASM Kernel
 	LARGE_INTEGER asmstart = getTimestamp();
-	Y = asm_dStencil(n, X, Y);
+	asmY = asm_dStencil(n, X, asmY);
 	LARGE_INTEGER asmend = getTimestamp();
 	
 	free(X);
-	free(Y);
+	free(cY);
+	free(asmY);
 
 	// ASM Execution Time
 	double asmtime = getExecutionTime(asmstart, asmend);
