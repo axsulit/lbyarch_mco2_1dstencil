@@ -5,9 +5,7 @@ By:
 <br>
 The 1D Stencil Operation is illusrated as:
 <br>
-```
-Y[i] = X[i] + X[i+1] + X[i+2] + X[i+3] + X[i+4] + X[i+5] + X[i+6]
-```
+`Y[i] = X[i] + X[i+1] + X[i+2] + X[i+3] + X[i+4] + X[i+5] + X[i+6]`
 <br>In this formula:
 
 - `X` is the input array containing the initial data.
