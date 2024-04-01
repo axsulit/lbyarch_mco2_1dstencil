@@ -88,16 +88,16 @@ double* genArr(int size, int seed) {
 }
 
 int main() {
-	int n = 1048576;   // 2^20
+	//int n = 1048576;   // 2^20
 	//int n = 16777216;  // 2^24
-	//int n = 268435456; // 2^28
+	int n = 268435456; // 2^28
 
 	printf("Generating random elements for array of size %d . . .\n", n);
 	double* X = genArr(n, 96);
 
 	n = n - 6;
-	double* cY = malloc(n * sizeof(double));
-	double* asmY = malloc(n * sizeof(double));
+	double* Y = malloc(n * sizeof(double));
+
 	// print X
 	/*printf("\nX -> ");
 	for (int i = 0; i < n+6; i++) {
@@ -108,21 +108,20 @@ int main() {
 
 	// C Kernel
 	LARGE_INTEGER cstart = getTimestamp();
-	c_dStencil(n, X, cY);
+	c_dStencil(n, X, Y);
 	LARGE_INTEGER cend = getTimestamp();
 
 	// C Execution Time
 	double ctime = getExecutionTime(cstart, cend);
-	printf("(C)   Execution time for 1D vector of size %d -> %lf seconds . . .\n\n", n, ctime);
+	printf("(C) Execution time for 1D vector of size %d -> %lf seconds . . .\n\n", n, ctime);
 
 	// ASM Kernel
 	LARGE_INTEGER asmstart = getTimestamp();
-	asmY = asm_dStencil(n, X, asmY);
+	Y = asm_dStencil(n, X, Y);
 	LARGE_INTEGER asmend = getTimestamp();
 	
 	free(X);
-	free(cY);
-	free(asmY);
+	free(Y);
 
 	// ASM Execution Time
 	double asmtime = getExecutionTime(asmstart, asmend);
