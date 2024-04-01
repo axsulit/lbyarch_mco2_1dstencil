@@ -37,18 +37,18 @@ This was implemented in its C and x86-64 kernels.
             <td style="text-align: center;">ASM</td>
         </tr>
         <tr>
-            <td style="padding: 0 15px 0 15px">0.025014</td>
-            <td style="padding: 0 15px 0 15px">0.002095</td>
-            <td style="padding: 0 15px 0 15px">0.380216</td>
-            <td style="padding: 0 15px 0 15px">0.032941</td>
-            <td style="padding: 0 15px 0 15px">5.729582</td>
-            <td style="padding: 0 15px 0 15px">0.516240</td>
-            <td style="padding: 0 15px 0 15px">0.007989</td>
-            <td style="padding: 0 15px 0 15px">0.002597</td>
-            <td style="padding: 0 15px 0 15px">0.092709</td>
-            <td style="padding: 0 15px 0 15px">0.036021</td>
-            <td style="padding: 0 15px 0 15px">1.440770</td>
-            <td style="padding: 0 15px 0 15px">0.568849</td>
+            <td>0.025014</td>
+            <td>0.002095</td>
+            <td>0.380216</td>
+            <td>0.032941</td>
+            <td>5.729582</td>
+            <td>0.516240</td>
+            <td>0.007989</td>
+            <td>0.002597</td>
+            <td>0.092709</td>
+            <td>0.036021</td>
+            <td>1.440770</td>
+            <td>0.568849</td>
         </tr>
     </tbody>
 </table>
