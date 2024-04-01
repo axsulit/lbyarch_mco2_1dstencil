@@ -4,8 +4,14 @@ The 1D Stencil Operation is illusrated as:<br>
 ```
 Y[i] = X[i] + X[i+1] + X[i+2] + X[i+3] + X[i+4] + X[i+5] + X[i+6]
 ```
+In this formula:
 
-This was implemented in its C and x86-64 kernels.
+- `X` is the input array containing the initial data.
+- `Y` is the output array where the result of the stencil operation will be stored.
+- `i` is the index of the current element in the arrays `X` and `Y`.
+
+This stencil operation was implemented in both C and x86-64 assembly kernels.
+
 
 ### Average Execution Time (in secs)
 <table>
