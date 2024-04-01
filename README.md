@@ -9,10 +9,10 @@ This was implemented in its C and x86-64 kernels.
 <table>
     <thead>
         <tr>
-            <td></td>
-            <td colspan=2 style="text-align: center;">2^20</td>
-            <td colspan=2 style="text-align: center;">2^24</td>
-            <td colspan=2 style="text-align: center;">2^28</td>
+            <td>n</td>
+            <td colspan=2 style="text-align: center;">2^20 (1048576)</td>
+            <td colspan=2 style="text-align: center;">2^24 (16777216)</td>
+            <td colspan=2 style="text-align: center;">2^28 (268435456)</td>
         </tr>
     </thead>
     <tbody>
