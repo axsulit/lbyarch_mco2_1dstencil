@@ -14,7 +14,7 @@
  * @param Y     Pointer to the output array to store the result of the stencil operation.
  * @return      None. The result is stored in the array Y.
  */
-extern void asm_dStencil(int n, double* X, double* Y);
+extern double* asm_dStencil(int n, double* X, double* Y);
 
 /**
  * @brief Retrieves the current high-resolution performance counter value.
@@ -91,10 +91,10 @@ int main() {
 	int n = 20; //1048576 [2^20], 16777216 [2^24], 268435456 [2^28] 
 	
 	printf("Generating random elements for array of size %d . . .\n", n);
-	double* X = genArr(n+2, 96);
+	double* X = genArr(n, 96);
 
 	n = n - 6;
-	double* Y = malloc(n+2 * sizeof(double));
+	double* Y = malloc(n * sizeof(double));
 
 	// print X
 	/*printf("\nX -> ");
@@ -114,16 +114,19 @@ int main() {
 	printf("(C)   Execution time for 1D vector of size %d -> %lf seconds . . .\n\n", n, ctime);
 
 	// ASM Kernel
+	//double* asm_dStencil_result = malloc(n * sizeof(double));
 	LARGE_INTEGER asmstart = getTimestamp();
-	asm_dStencil(n, X, Y);
+	Y = asm_dStencil(n, X, Y);
 	LARGE_INTEGER asmend = getTimestamp();
 	
+	free(X);
+	free(Y);
+	//free(asm_dStencil_result);
+
 	// ASM Execution Time
 	double asmtime = getExecutionTime(asmstart, asmend);
 	printf("(ASM) Execution time for 1D vector of size %d -> %lf seconds . . .\n", n, asmtime);
 	
-	free(X);
-	free(Y);
-
+	
 	return 0;
 }

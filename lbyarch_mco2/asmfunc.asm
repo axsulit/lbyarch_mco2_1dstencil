@@ -1,7 +1,6 @@
 section .data
-count dq 0
 output_hold dq 0.0
-msg1 db "(ASM) Output: Y ->: %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf . . .", 10, 0
+msg1 db "(ASM) Output: Y -> %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf, %.4lf . . .", 10, 0
 
 section .text
 bits 64
@@ -10,19 +9,19 @@ default rel
 global asm_dStencil
 extern printf
 
-asm_dStencil:
-    sub rsp, 8*11
+asm_dStencil:   
+    sub rsp, 8*11       ; Allocate space for local variables
     
-    mov rsi, rcx ; n
+    mov r12, rcx ; n
     mov r13, rdx ; X
     mov r14, r8  ; Y
-
-    mov qword [count], rsi
-        
+    
+    ; displacement variables
     mov rbx, 3
     mov r11, 0
+
 LOOP:
-    cmp r11, [count]
+    cmp r11, r12
     je print_output
     
     movsd xmm5, [r13 - 24 + 8*rbx] 
@@ -97,4 +96,7 @@ end:
     call printf
     
     add rsp, 8*11
-    ret
+    mov rax, r14
+
+
+    ret       
