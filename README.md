@@ -1,5 +1,8 @@
 # 1D Stencil Operation in C and x86-64 Assembly
-
+By:
+- Sulit, Anne Gabrielle
+- Torio, Ysobella
+<br>
 The 1D Stencil Operation is illusrated as:<br>
 ```
 Y[i] = X[i] + X[i+1] + X[i+2] + X[i+3] + X[i+4] + X[i+5] + X[i+6]
