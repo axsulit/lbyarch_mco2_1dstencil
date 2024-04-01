@@ -36,7 +36,6 @@ This was implemented in its C and x86-64 kernels.
             <td style="text-align: center;">C</td>
             <td style="text-align: center;">ASM</td>
         </tr>
-
         <tr>
             <td style="padding: 0 15px 0 15px">0.025014</td>
             <td style="padding: 0 15px 0 15px">0.002095</td>
